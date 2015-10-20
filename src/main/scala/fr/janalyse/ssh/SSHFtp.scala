@@ -14,7 +14,7 @@ object SSHFtp {
 }
 
 class SSHFtp(implicit ssh: SSH) extends TransfertOperations with SSHLazyLogging {
-  private val channel: ChannelSftp = {
+  val channel: ChannelSftp = {
     //jschftpchannel.connect(link.connectTimeout)
     val ch = ssh.jschsession().openChannel("sftp").asInstanceOf[ChannelSftp]
     ch.connect(ssh.options.connectTimeout.toInt)
