@@ -83,7 +83,7 @@ class SSHFtp(implicit ssh: SSH) extends TransfertOperations with SSHLazyLogging 
    */
   def cd(path: String): Unit = channel.cd(path)
 
-  override def receive(remoteFilename: String, outputStream: OutputStream): ChannelSftp {
+  override def receive(remoteFilename: String, outputStream: OutputStream) {
     try {
       channel.get(remoteFilename, outputStream)
     } catch {
