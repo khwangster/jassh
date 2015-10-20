@@ -14,7 +14,7 @@ object SSHFtp {
 }
 
 class SSHFtp(implicit ssh: SSH) extends TransfertOperations with SSHLazyLogging {
-  val channel: ChannelSftp = {
+  private val channel: ChannelSftp = {
     //jschftpchannel.connect(link.connectTimeout)
     val ch = ssh.jschsession().openChannel("sftp").asInstanceOf[ChannelSftp]
     ch.connect(ssh.options.connectTimeout.toInt)
@@ -96,6 +96,7 @@ class SSHFtp(implicit ssh: SSH) extends TransfertOperations with SSHLazyLogging 
     } finally {
       outputStream.close      
     }
+    channel
   }
 
   override def put(data: String, remoteFilename: String) {
